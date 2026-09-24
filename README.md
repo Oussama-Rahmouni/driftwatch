@@ -75,7 +75,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install -g driftwatch   # or npx from your repo's devDependencies
+      # driftwatch is not on npm yet — install from source until it is:
+      - run: npm install -g github:Oussama-Rahmouni/driftwatch   # or npm i -g driftwatch once published
       - run: driftwatch check --json > drift-events.json || true
       - run: driftwatch check
       # on failure: open an issue / post to Slack from drift-events.json
@@ -102,7 +103,7 @@ The body comparison hashes the canonical list of matched WAF markers, not the HT
 
 ## How detection works
 
-The detection engine (challenge classifier + passive vendor fingerprints) is shared with [whichwaf](https://github.com/Oussama-Rahmouni/whichwaf). The classifier distinguishes a WAF's *presence* (benign JS on a 200) from a *block* (interstitial, challenge status) — presence alone doesn't count as a challenge, so baselines on clean targets stay clean.
+The detection engine (challenge classifier + passive vendor fingerprints) is shared with [whichwaf](https://github.com/Oussama-Rahmouni/whichwaf) (31 vendor signatures, synced at whichwaf v0.2.0). The classifier distinguishes a WAF's *presence* (benign JS on a 200) from a *block* (interstitial, challenge status) — presence alone doesn't count as a challenge, so baselines on clean targets stay clean.
 
 ## Limitations
 
