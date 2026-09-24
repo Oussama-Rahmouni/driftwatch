@@ -1,7 +1,7 @@
 {
   "name": "driftwatch",
-  "version": "0.1.0",
-  "description": "Anti-bot drift detection for crawling pipelines \u2014 probe your targets, snapshot their WAF posture, fail CI when it changes.",
+  "version": "0.2.0",
+  "description": "Anti-bot drift detection for crawling pipelines — probe your targets, snapshot their WAF posture, fail CI when it changes.",
   "keywords": [
     "anti-bot",
     "waf",
