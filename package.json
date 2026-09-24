@@ -1,8 +1,17 @@
 {
   "name": "driftwatch",
   "version": "0.1.0",
-  "description": "Anti-bot drift detection for crawling pipelines — probe your targets, snapshot their WAF posture, fail CI when it changes.",
-  "keywords": ["anti-bot", "waf", "cloudflare", "datadome", "akamai", "web-scraping", "monitoring", "ci"],
+  "description": "Anti-bot drift detection for crawling pipelines \u2014 probe your targets, snapshot their WAF posture, fail CI when it changes.",
+  "keywords": [
+    "anti-bot",
+    "waf",
+    "cloudflare",
+    "datadome",
+    "akamai",
+    "web-scraping",
+    "monitoring",
+    "ci"
+  ],
   "license": "MIT",
   "author": "Oussama Rahmouni",
   "type": "module",
@@ -17,17 +26,29 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "engines": {
     "node": ">=20"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "tsc -p tsconfig.test.json && node --test dist-test/test/",
-    "driftwatch": "npm run build --silent && node dist/cli.js"
+    "test": "tsc -p tsconfig.test.json && node --test \"dist-test/test/**/*.test.js\"",
+    "driftwatch": "npm run build --silent && node dist/cli.js",
+    "prepublishOnly": "npm run build && npm test",
+    "prepare": "npm run build"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "typescript": "^5.6.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oussama-Rahmouni/driftwatch.git"
+  },
+  "homepage": "https://github.com/Oussama-Rahmouni/driftwatch#readme",
+  "bugs": "https://github.com/Oussama-Rahmouni/driftwatch/issues"
 }
