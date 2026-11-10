@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { detectChallenge } from "../src/detect.js";
+import { detectChallenge } from "whichwaf";
 
 /**
  * Canned WAF responses → expected classification.

@@ -1,6 +1,6 @@
 {
-  "name": "driftwatch",
-  "version": "0.2.0",
+  "name": "@rahmounidev/driftwatch",
+  "version": "0.2.1",
   "description": "Anti-bot drift detection for crawling pipelines — probe your targets, snapshot their WAF posture, fail CI when it changes.",
   "keywords": [
     "anti-bot",
@@ -50,5 +50,8 @@
     "url": "git+https://github.com/Oussama-Rahmouni/driftwatch.git"
   },
   "homepage": "https://github.com/Oussama-Rahmouni/driftwatch#readme",
-  "bugs": "https://github.com/Oussama-Rahmouni/driftwatch/issues"
+  "bugs": "https://github.com/Oussama-Rahmouni/driftwatch/issues",
+  "dependencies": {
+    "whichwaf": "^0.4.1"
+  }
 }

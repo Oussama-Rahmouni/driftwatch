@@ -11,12 +11,22 @@ Anti-bot vendors ship changes silently. A target adds DataDome, tightens a Cloud
 ## Install
 
 ```sh
+npm i -g @rahmounidev/driftwatch
+```
+
+From source:
+
+```sh
+git clone https://github.com/Oussama-Rahmouni/driftwatch.git
+cd driftwatch
 npm install
 npm run build
 npm link        # puts `driftwatch` on PATH
 ```
 
-Node ≥ 20. Zero runtime dependencies.
+Node ≥ 20. Detection is built on the
+[`whichwaf`](https://www.npmjs.com/package/whichwaf) classifier, pulled in as a
+normal dependency so both tools never disagree about what a response is.
 
 ## Quickstart
 
@@ -75,8 +85,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      # driftwatch is not on npm yet — install from source until it is:
-      - run: npm install -g github:Oussama-Rahmouni/driftwatch   # or npm i -g driftwatch once published
+      - run: npm install -g @rahmounidev/driftwatch
       - run: driftwatch check --json > drift-events.json || true
       - run: driftwatch check
       # on failure: open an issue / post to Slack from drift-events.json

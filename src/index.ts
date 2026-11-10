@@ -1,5 +1,19 @@
-export { detectChallenge, headerVal, hasHeader, type ChallengeKind, type ChallengeSignal, type DetectInput } from "./detect.js";
-export { fingerprintVendors, SIGNATURES, type VendorHit, type VendorSignature } from "./vendors.js";
+export { detectChallenge, fingerprintVendors, SIGNATURES } from "whichwaf";
+export type { ChallengeKind, ChallengeSignal, DetectInput, VendorHit, VendorSignature } from "whichwaf";
+
+/** case-insensitive header lookup, same semantics as whichwaf's internal helper */
+export function headerVal(headers: import("whichwaf").DetectInput["headers"], name: string): string | null {
+  const lower = name.toLowerCase();
+  for (const [k, v] of Object.entries(headers)) {
+    if (k.toLowerCase() === lower) return Array.isArray(v) ? v.join(",") : (v ?? null);
+  }
+  return null;
+}
+
+export function hasHeader(headers: import("whichwaf").DetectInput["headers"], name: string): boolean {
+  return headerVal(headers, name) !== null;
+}
+
 export { analyze, type Analysis, type Layer } from "./analyze.js";
 export { probe, type ProbeResult } from "./probe.js";
 export { loadConfig, validateConfig, type DriftwatchConfig, type TargetConfig } from "./config.js";

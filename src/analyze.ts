@@ -7,8 +7,8 @@
  * shape tells you which one to fix first.
  */
 
-import { detectChallenge, type ChallengeKind, type ChallengeSignal, type DetectInput } from './detect.js';
-import { fingerprintVendors, type VendorHit } from './vendors.js';
+import { detectChallenge, type ChallengeKind, type ChallengeSignal, type DetectInput } from 'whichwaf';
+import { fingerprintVendors, type VendorHit } from 'whichwaf';
 
 export type Layer =
   | 'identity'      // IP/ASN reputation
@@ -87,6 +87,26 @@ const LAYER_BY_KIND: Record<ChallengeKind, { layer: Layer; hint: string }> = {
   modsecurity: {
     layer: 'application',
     hint: 'OWASP CRS rule matched your request. Inspect headers/payload for the offending pattern — 406 is almost always the request, not you.',
+  },
+  vercel: {
+    layer: 'transport',
+    hint: 'Vercel Security Checkpoint — a JS proof-of-work that fires on TLS/transport mismatch for non-browser clients. A browser-shaped TLS fingerprint passes clean.',
+  },
+  azurewaf: {
+    layer: 'browser',
+    hint: 'Azure WAF JS challenge (Front Door / App Gateway). The page runs a script and reloads, so a non-JS client never gets past it.',
+  },
+  ratelimit: {
+    layer: 'behavior',
+    hint: 'Genuine rate limiting (Retry-After / X-RateLimit-* present). Throttle cadence and spread load; fingerprint changes won\'t help.',
+  },
+  'unknown-gate': {
+    layer: 'transport',
+    hint: 'Anomalous denial with no vendor markers — typically TLS/HTTP2 fingerprint rejection, IP reputation, or a custom edge function.',
+  },
+  'challenged-again': {
+    layer: 'session',
+    hint: 'A clearance cookie exists and the challenge is still served: the credential was issued but not trusted. Warm the session or change the exit; another solve buys nothing.',
   },
   radware: {
     layer: 'browser',

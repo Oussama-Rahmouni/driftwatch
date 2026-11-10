@@ -10,7 +10,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { ProbeResult } from "./probe.js";
 import type { Analysis } from "./analyze.js";
-import { SIGNATURES } from "./vendors.js";
+import { SIGNATURES } from "whichwaf";
 
 export interface TargetSnapshot {
   name: string;
